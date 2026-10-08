@@ -1,0 +1,5 @@
+Generation_Type,Actual_Generation_MWh,Expected_Generation_MWh,Generation_Variance_MWh,Generation_Variance_Pct,Capacity_Factor,Availability_Percent,Planned_Downtime_Hours,Unplanned_Downtime_Hours,Unplanned_Capacity_MWh,Maintenance_Cost,Maintenance_Events,Safety_Incidents,Capacity_MW
+Natural Gas,3433680.5,3468146.9,-34466.4,-0.99,52.97,95.85,535.0,120.0,55280.0,2356791.7,76,0,740
+Wind,1397464.1,1368387.9,29076.2,2.12,45.58,98.72,124.0,103.0,17920.0,477082.7,28,0,350
+Solar,610858.6,616151.3,-5292.7,-0.86,25.36,99.18,100.0,57.0,5670.0,157178.7,20,2,275
+Battery Energy Storage,150435.7,150420.4,15.3,0.01,13.74,99.7,45.0,10.0,500.0,32691.5,10,1,125

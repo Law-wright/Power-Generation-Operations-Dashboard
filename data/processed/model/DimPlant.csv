@@ -1,0 +1,9 @@
+Plant_ID,Plant_Name,Region,Capacity_MW,Generation_Type
+BAT-01,Summit Storage,North Ridge,75,Battery Energy Storage
+BAT-02,Harbor Storage,Coastal Plain,50,Battery Energy Storage
+GAS-01,Riverbend Combined Cycle,River Valley,540,Natural Gas
+GAS-02,Pinecrest Peakers,North Ridge,200,Natural Gas
+SOL-01,Horizon Flats Solar,High Desert,180,Solar
+SOL-02,Cedar Bend Solar,Coastal Plain,95,Solar
+WND-01,Gale Point Wind,Coastal Plain,210,Wind
+WND-02,Red Mesa Wind,High Desert,140,Wind

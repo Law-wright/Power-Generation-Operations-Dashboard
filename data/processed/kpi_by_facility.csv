@@ -1,0 +1,9 @@
+Plant_ID,Plant_Name,Generation_Type,Region,Capacity_MW,Actual_Generation_MWh,Expected_Generation_MWh,Generation_Variance_MWh,Generation_Variance_Pct,Capacity_Factor,Availability_Percent,Planned_Downtime_Hours,Unplanned_Downtime_Hours,Unplanned_Capacity_MWh,Maintenance_Cost,Maintenance_Events,Safety_Incidents
+GAS-01,Riverbend Combined Cycle,Natural Gas,River Valley,540,3064943.5,3098847.9,-33904.4,-1.09,64.79,95.38,313.0,92.0,49680.0,1874145.5,46,0
+WND-01,Gale Point Wind,Wind,Coastal Plain,210,880511.2,885988.4,-5477.2,-0.62,47.86,98.77,58.0,50.0,10500.0,241967.5,14,0
+WND-02,Red Mesa Wind,Wind,High Desert,140,516952.9,482399.5,34553.4,7.16,42.15,98.64,66.0,53.0,7420.0,235115.2,14,0
+SOL-01,Horizon Flats Solar,Solar,High Desert,180,426655.4,428908.6,-2253.2,-0.53,27.06,99.35,54.0,3.0,540.0,51815.9,7,0
+GAS-02,Pinecrest Peakers,Natural Gas,North Ridge,200,368737.0,369299.0,-562.0,-0.15,21.05,97.15,222.0,28.0,5600.0,482646.2,30,0
+SOL-02,Cedar Bend Solar,Solar,Coastal Plain,95,184203.2,187242.7,-3039.5,-1.62,22.13,98.86,46.0,54.0,5130.0,105362.8,13,2
+BAT-01,Summit Storage,Battery Energy Storage,North Ridge,75,90304.7,90248.5,56.2,0.06,13.75,99.77,20.0,0.0,0.0,10387.3,4,1
+BAT-02,Harbor Storage,Battery Energy Storage,Coastal Plain,50,60131.0,60171.9,-40.9,-0.07,13.73,99.6,25.0,10.0,500.0,22304.2,6,0

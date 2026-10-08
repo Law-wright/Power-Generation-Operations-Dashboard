@@ -1,0 +1,13 @@
+Metric,Value,Unit,Definition
+Total_Generation_MWh,5592438.9,MWh,"Sum of actual generation, including battery discharge"
+Generation_Excluding_Storage_MWh,5442003.2,MWh,"Actual generation from solar, wind, and natural gas"
+Battery_Discharge_MWh,150435.7,MWh,Energy discharged by battery facilities
+Installed_Capacity_MW,1490.0,MW,"Sum of nameplate capacity, counted once per plant"
+Average_Available_Capacity_MW,1452.2081232876715,MW,Average online nameplate capacity across days
+Average_Availability_Percent,97.4636324354142,Percent,Capacity-weighted availability
+Total_Planned_Downtime_Hours,804.0,Hours,Sum of planned downtime hours
+Total_Unplanned_Downtime_Hours,290.0,Hours,Sum of unplanned downtime hours
+Total_Maintenance_Cost,3023744.61,USD,Sum of maintenance cost
+Average_Capacity_Factor_Percent,42.8460581961938,Percent,Total actual MWh divided by total nameplate MWh
+Generation_Variance_MWh,-10667.599999999627,MWh,Actual generation minus expected generation
+Generation_Variance_Pct,-0.19038724321944672,Percent,Variance divided by expected generation
