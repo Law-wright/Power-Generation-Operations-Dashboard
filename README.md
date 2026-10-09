@@ -74,6 +74,8 @@ Fact and dimension CSVs in data/processed/model/
 
 ```text
 Power-Generation-Operations-Dashboard/
+├── dashboard/
+│   └── Power_Generation_Operations_Dashboard.pbix  # Power BI report
 ├── data/
 │   ├── raw/                  # generated daily extract
 │   └── processed/            # cleaned extract, KPI tables, star schema
@@ -188,17 +190,35 @@ The dashboard is specified in [docs/dashboard_plan.md](docs/dashboard_plan.md). 
 
 Power BI Desktop is a Windows application. This repository prepares the import files and the build steps. It does not require Power BI to generate or check the data.
 
+The report is saved as `dashboard/Power_Generation_Operations_Dashboard.pbix`. Its queries load the four CSVs in `data/processed/model/` from absolute paths on the machine where it was built. After cloning to a different folder, open **Transform data > Data source settings** in Power BI Desktop, point each source at your copy of `data/processed/model/`, and refresh.
+
 The page has five cards across the top: total generation, available capacity, average availability, unplanned downtime, and maintenance cost. Below them are generation by technology, actual versus expected by plant, a monthly trend with one line per technology, availability by facility, planned versus unplanned downtime, maintenance cost by facility, and a facility performance table. Slicers cover date, facility, generation type, and region.
 
 The DAX measures repeat the Python definitions. Capacity factor and availability are ratios of sums, so a large plant keeps its weight when a slicer changes. The full-year cards should match the KPI table above: 5,592,439 MWh, 1,452 MW available, 97.5% availability, 290 unplanned hours, and $3,023,745 of maintenance cost.
 
 ## How to run
 
-From the repository root in Cursor’s terminal on macOS:
+Requires Python 3.9 or later. Run these commands from the repository root in any terminal.
+
+Create and activate a virtual environment:
 
 ```bash
+# macOS / Linux
 python3 -m venv .venv
 source .venv/bin/activate
+```
+
+```powershell
+# Windows (PowerShell)
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+On Windows, use `py` instead of `python` if Python was installed with the python.org launcher. If PowerShell blocks the activation script, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once, then activate again. In Command Prompt, activate with `.venv\Scripts\activate.bat`.
+
+Then install the dependencies and run the pipeline. These commands are the same on every platform:
+
+```bash
 pip install -r requirements.txt
 python scripts/generate_data.py
 python scripts/clean_data.py
@@ -216,7 +236,7 @@ python scripts/build_star_schema.py
 
 Run the scripts in this order. Each step reads the file produced by the step before it.
 
-Open `notebooks/exploratory_analysis.ipynb` in Cursor and choose the `.venv` kernel. The notebook reads the clean CSV and charts monthly generation, capacity factor, variance versus plan, downtime, and maintenance cost. Run the cleaner before the notebook.
+Open `notebooks/exploratory_analysis.ipynb` in any Jupyter-capable editor, such as VS Code, Cursor, or Jupyter Lab, and choose the `.venv` kernel. The notebook reads the clean CSV and charts monthly generation, capacity factor, variance versus plan, downtime, and maintenance cost. Run the cleaner before the notebook.
 
 ## Future improvements
 
