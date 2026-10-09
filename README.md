@@ -1,8 +1,10 @@
 # Power Generation Operations Dashboard
 
-A portfolio project that simulates daily operations for a fictional electric utility fleet. The goal is to practice working with operational data: generate a realistic extract, and later clean it, measure performance, and design a Power BI dashboard.
+A portfolio project that simulates daily operations for a fictional electric utility fleet. The goal is to practice working with operational data: generate a realistic extract, clean it, measure performance, and build a Power BI dashboard.
 
-The project generates a raw extract, cleans it, calculates operational KPIs, and prepares a star schema plus a Power BI build guide. Building the report itself is the step that happens in Power BI Desktop on Windows.
+The project generates a raw extract, cleans it, calculates operational KPIs, prepares a star schema, and loads that model into a single-page Power BI report.
+
+![Fleet performance dashboard in Power BI](dashboard/dashboard_fleet_performance.png)
 
 ## Purpose
 
@@ -16,7 +18,7 @@ Imagine an operations analyst supporting a mixed fleet of solar, wind, natural g
 
 **How effectively are our generation assets performing, and where should operations teams focus their attention?**
 
-The dataset is shaped so that question can be explored later in Power BI, without requiring Power BI to generate or inspect the data.
+The dataset is shaped so that question can be answered in Power BI, without requiring Power BI to generate or inspect the data.
 
 ## Synthetic data disclaimer
 
@@ -28,9 +30,10 @@ Every plant, region, and operating value in this project is fictional. The gener
 - pandas
 - NumPy
 - matplotlib, in the exploratory notebook
-- CSV files for a direct Power BI import later
+- CSV files for a direct Power BI import
+- Power BI Desktop, with DAX measures, for the report
 
-Power BI is the planned visualization tool. It is not required to run this project.
+Power BI is only needed to open the report. It is not required to run the Python pipeline.
 
 ## Architecture
 
@@ -62,6 +65,9 @@ scripts/build_star_schema.py
         |
         v
 Fact and dimension CSVs in data/processed/model/
+        |
+        v
+dashboard/Power_Generation_Operations_Dashboard.pbix
 ```
 
 - **Raw data** is the extract as it arrives: one row per plant per day, stored in `data/raw/`. A few documented defects are included so cleaning has real work to do.
@@ -75,7 +81,8 @@ Fact and dimension CSVs in data/processed/model/
 ```text
 Power-Generation-Operations-Dashboard/
 ├── dashboard/
-│   └── Power_Generation_Operations_Dashboard.pbix  # Power BI report
+│   ├── Power_Generation_Operations_Dashboard.pbix  # Power BI report
+│   └── dashboard_fleet_performance.png             # report screenshot
 ├── data/
 │   ├── raw/                  # generated daily extract
 │   └── processed/            # cleaned extract, KPI tables, star schema
@@ -184,17 +191,17 @@ Observations worth investigating:
 5. Wind is where actual generation wanders from the plan. A typical day at Red Mesa misses expected generation by about 27%, and Gale Point by about 18%. The gas plants miss by under 1% on a typical day. Red Mesa still finishes the year 7.2% above its expected total, so the annual beat hides a noisy forecast.
 6. Three safety incidents are on record, two at Cedar Bend and one at Summit Storage. None fall on an unplanned-downtime day. The counts are small. Cedar Bend is the plant that combines those incidents with the solar fleet’s unplanned hours.
 
-## Planned Power BI dashboard
+## Power BI dashboard
 
-The dashboard is specified in [docs/dashboard_plan.md](docs/dashboard_plan.md). It is a single page, **Fleet performance**, aimed at the same question as the KPI analysis.
+The report is a single page, **Fleet performance**, aimed at the same question as the KPI analysis. The model, measures, and visuals follow the build guide in [docs/dashboard_plan.md](docs/dashboard_plan.md). The screenshot at the top of this README shows the page with every slicer cleared.
 
-Power BI Desktop is a Windows application. This repository prepares the import files and the build steps. It does not require Power BI to generate or check the data.
+Power BI Desktop is a Windows application. It is only needed to open the report. The Python scripts generate and check the data without it.
 
 The report is saved as `dashboard/Power_Generation_Operations_Dashboard.pbix`. Its queries load the four CSVs in `data/processed/model/` from absolute paths on the machine where it was built. After cloning to a different folder, open **Transform data > Data source settings** in Power BI Desktop, point each source at your copy of `data/processed/model/`, and refresh.
 
-The page has five cards across the top: total generation, available capacity, average availability, unplanned downtime, and maintenance cost. Below them are generation by technology, actual versus expected by plant, a monthly trend with one line per technology, availability by facility, planned versus unplanned downtime, maintenance cost by facility, and a facility performance table. Slicers cover date, facility, generation type, and region.
+The page has five cards across the top: total generation, available capacity, average availability, unplanned downtime, and maintenance cost. Below them, slicers for facility, region, generation type, and date sit beside a facility performance table sorted by unplanned hours. The charts cover generation by technology, actual versus expected generation by plant, fleet actual versus expected by month, a monthly trend with one line per technology, availability by facility against the fleet average, planned versus unplanned downtime, and maintenance cost by facility.
 
-The DAX measures repeat the Python definitions. Capacity factor and availability are ratios of sums, so a large plant keeps its weight when a slicer changes. The full-year cards should match the KPI table above: 5,592,439 MWh, 1,452 MW available, 97.5% availability, 290 unplanned hours, and $3,023,745 of maintenance cost.
+The DAX measures repeat the Python definitions. Capacity factor and availability are ratios of sums, so a large plant keeps its weight when a slicer changes. With every slicer cleared, the cards match the KPI table above: 5,592,439 MWh, 1,452 MW available, 97.5% availability, 290 unplanned hours, and $3,023,745 of maintenance cost. The table's total row also matches the 42.8% capacity factor and 0.19% shortfall against plan.
 
 ## How to run
 
@@ -240,7 +247,6 @@ Open `notebooks/exploratory_analysis.ipynb` in any Jupyter-capable editor, such 
 
 ## Future improvements
 
-- Build the report in Power BI Desktop on Windows and check the cards against `kpi_fleet.csv`.
 - Add a second year so the date table can support year-over-year comparisons.
 - Split battery charge and discharge into separate measures. This model records discharge only.
 - Add an outage-cause field so unplanned hours can be grouped by equipment rather than by plant alone.
